@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "bulletinBoard/static/css",
+    "public": "static/css",
     "ignore": [
       "firebase.json",
       "**/.*",
