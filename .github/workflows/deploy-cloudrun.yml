@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
+        -
       - name: Setup gcloud CLI
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
@@ -23,7 +23,9 @@ jobs:
           project_id: ${{ secrets.GCLOUD_PROJECT }}
 
       - name: Build and push image to Gloud Container Registry
+      - uses: actions/checkout@v2
         run: gcloud builds submit --tag gcr.io/$PROJECT_ID/$PROJECT_NAME:$GITHUB_SHA
 
       - name: Deploy to Gcloud Run
+      - uses: actions/checkout@v2
         run: gcloud run deploy $PROJECT_ID --image gcr.io/$PROJECT_ID/$PROJECT_NAME:$GITHUB_SHA --platform managed --region $RUN_REGION
