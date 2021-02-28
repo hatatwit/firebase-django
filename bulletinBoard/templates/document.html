@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+    <style>
+        .table.table-hover.table-bordered tbody tr th a,
+        .table.table-hover.table-bordered tbody tr th a:hover {
+            color: sandybrown;
+            text-decoration: none;
+        }
+    </style>
+
+    {% if message %}
+        <div class="alert alert-warning" role="alert"><p class="text-center">{{ message }}</p></div>
+    {% endif %}
+    <br>
+    <button type="button" class="btn btn-outline-dark float-right" onclick="location.href={% url 'upload' %}">+
+        NEW</button>
+    <h2>Documents</h2>
+    <br>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Date</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if documentLst %}
+            {% for title, date, docId, url in documentLst %}
+                <tr>
+                    <th scope="row"><a href="{{ url }}">{{ title }}</a></th>
+                    <td>{{ date }}</td>
+                    <th>
+                        <a href="/delete/?docId={{ docId }}">Delete</a>
+                    </th>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <th scope="row">None</th>
+                <td>None</td>
+                <th>None</th>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+{% endblock content %}

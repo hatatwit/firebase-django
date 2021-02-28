@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if message %}
+        <div class="alert alert-warning" role="alert"><p class="text-center">{{ message }}</p></div>
+    {% endif %}
+
+    <div class="row ">
+        <div class=".col-md-6 .offset-md-3">
+            <form action="/postCreate/" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Event</label><br>
+                    <input type="text" name="event" required>
+                </div>
+                <div class="form-group">
+                    <label>Date</label><br>
+                    <input type="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Starting Time - Ending Time</label><br>
+                    <input type="time" name="start_time" required> - <input type="time" name="end_time" required>
+                </div><br>
+                <input type="submit" class="btn btn-outline-dark" value="Submit">
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}

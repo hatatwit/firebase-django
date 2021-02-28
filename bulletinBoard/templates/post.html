@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if message %}
+        <div class="alert alert-warning" role="alert"><p class="text-center">{{ message }}</p></div>
+    {% endif %}
+    <br>
+    <button type="button" class="btn btn-outline-dark float-right" onclick="location.href={% url 'add' %}">+
+        NEW</button>
+    <h2>Posts</h2>
+
+    {% if postLst %}
+        {% for title, author, date, postId, content in postLst %}
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    <span class="font-weight-bold">{{ title }}</span>
+                    <span class="text-muted">by {{ author }} | {{ date }}</span>
+                    <span class="float-right">
+                        {% if author == email %}
+                            <a href="/remove/?postId={{ postId }}">Delete</a></button>
+                        {% endif %}</span>
+                </div>
+                <div class="card-body">
+                    {{ content }}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    <span class="font-weight-bold">None</span>
+                </div>
+                <div class="card-body">None</div>
+            </div>
+    {% endif %}
+
+{% endblock content %}

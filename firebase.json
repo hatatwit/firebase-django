@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "public": "bulletinBoard/static/css",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [{
+      "source": "**",
+      "run": {
+        "serviceId": "bb-cloudrun",
+        "region": "us-central1"
+      }
+    }]
+  }
+}

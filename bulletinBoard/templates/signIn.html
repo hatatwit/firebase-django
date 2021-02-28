@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if message %}
+        <div class="alert alert-warning" role="alert"><p class="text-center">{{ message }}</p></div>
+    {% endif %}
+
+    <div class="row">
+            <div class="col-md-4 offset-md-4">
+            <form class="form-signin" action="/postsignIn/" method="post">
+                {% csrf_token %}
+                <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
+                <!-- Enter email -->
+                <input type="email" id="Email" name="email" class="form-control" placeholder="Email"><br>
+                <!-- Enter password -->
+                <input type="password" id="Password" name="pass" class="form-control" placeholder="Password"><hr>
+
+                <button class="btn btn-outline-dark" type="submit" onclick="location.href='{% url 'signin' %}'">Sign In</button>
+                <button class="btn btn-outline-dark" type="button" onclick="location.href='{% url 'signup' %}'">Sign
+                    Up</button>
+                <a class="pt-2 float-right" href="/reset/">Forgot Password?</a>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

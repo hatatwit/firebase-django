@@ -1,0 +1,100 @@
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <!--Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>{% block title %}Bulletin Board{% endblock title %}</title>
+
+    <!--local CSS-->
+    <link rel="stylesheet" href="./static/css/base.css">
+
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</head>
+
+
+<body>
+<header>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+        <!-- Logo -->
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="/media/image/WIT-Logo.png" alt="logo" width="60" height="60">
+        </a>
+        <!-- Logo Brand -->
+        <a class="navbar-brand font-weight-bold" href="{% url 'home' %}">Bulletin Board</a>
+        <!-- Hamburger menu icon -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <!-- Home -->
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                {% if email %}
+                <!-- Archive (dropdown) -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown"
+                           data-toggle="dropdown"
+                           aria-expanded="false">Archive</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'doc' %}">Document</a>
+                            <a class="dropdown-item" href="{% url 'post' %}">Post</a>
+                        </div>
+                    </li>
+                    <!-- Event -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'event' %}">Event</a>
+                    </li>
+                {% endif %}
+                <!-- User -->
+                <li class="nav-item">
+                    {% if email %}
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
+                                                         id="navbarDropdown" data-toggle="dropdown"
+                                                         aria-expanded="false">{{ email }}</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'signout' %}">Log out</a>
+                            </div>
+                        </li>
+                    {% else %}
+                        <a class="nav-link" href="{% url 'signin' %}">Sign In</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    {% block content %}
+    {% endblock content %}
+</div>
+</body>
+
+<!-- Footer -->
+<footer class="p-3 p-md-5 mt-5 bg-light text-center">
+    <div class="container">
+        <p class="mb-0">© 2021 Copyright: Trang Ha. All rights reserved. Content used with permission of author.
+            Wentworth Institute of Technology logo used with permission of Wentworth Institute of Tehnology</p>
+    </div>
+</footer>
+
+
+</html>

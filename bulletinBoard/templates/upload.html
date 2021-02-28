@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if message %}
+    <div class="alert alert-warning" role="alert"><p class="text-center">{{ message }}</p></div>
+    {% endif %}
+
+    <div class="row ">
+        <div class=".col-md-6 .offset-md-3">
+            <form action="/postUpload/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Title</label>
+                    <input type="text" name="title" class="form-control-file" required>
+                </div>
+                <div class="form-group">
+                    <input type="file" name="files[]" id="files" required>
+                    <input type="hidden" name="url" id="url">
+                    <input type="button" onclick="uploadFile()" value="Upload">
+                </div>
+                <input type="submit" class="btn btn-outline-dark" value="Submit">
+            </form>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyBnjPbt239hSnxpt29goF60-R85HErLuTo",
+            authDomain: "fir-django-a355c.firebaseapp.com",
+            databaseURL: "https://fir-django-a355c-default-rtdb.firebaseio.com/",
+            storageBucket: "fir-django-a355c.appspot.com",
+            measurementId: "G-2JWGY8HH2T",
+        };
+        firebase.initializeApp(config);
+        // Get a reference to the storage service, which is used to create references in your storage bucket
+        function uploadFile(){
+            var storage = firebase.storage();
+            var file = document.getElementById("files").files[0];
+            var storageRef = storage.ref();
+            var uploadFile = storageRef.child(file.name).put(file);
+            uploadFile.on('state_changed',function(snapshot){
+                    console.log("file upload succesfully");
+                },
+                function(error) {
+                },
+                function() {
+    // Upload completed successfully, now we can get the download URL
+                    var downloadURL = uploadFile.snapshot.downloadURL;
+                    document.getElementById("url").value = downloadURL;
+                    alert("File uploaded successfully");
+                });
+        }
+    </script>
+{% endblock content %}

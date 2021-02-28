@@ -1,0 +1,29 @@
+name: Deploy to Cloud Run
+on:
+  push:
+    branches:
+      - master
+env:
+  PROJECT_ID: ${{ secrets.GCLOUD_PROJECT }}
+  PROJECT_NAME: ${{ secrets.GCLOUD_APP_NAME }}
+  RUN_REGION: us-central1
+  SA_KEY_JSON: ${{ secrets.GCLOUD_AUTH }}
+jobs:
+  deploy:
+    name: Deploy to Cloud Run
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup gcloud CLI
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: "290.0.1"
+          service_account_key: ${{ secrets.GCLOUD_AUTH }}
+          project_id: ${{ secrets.GCLOUD_PROJECT }}
+
+      - name: Build and push image to Gloud Container Registry
+        run: gcloud builds submit --tag gcr.io/$PROJECT_ID/$PROJECT_NAME:$GITHUB_SHA
+
+      - name: Deploy to Gcloud Run
+        run: gcloud run deploy $PROJECT_ID --image gcr.io/$PROJECT_ID/$PROJECT_NAME:$GITHUB_SHA --platform managed --region $RUN_REGION

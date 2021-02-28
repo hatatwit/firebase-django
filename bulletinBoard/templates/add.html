@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if message %}
+        <div class="alert alert-warning" role="alert"><p class="text-center">{{ message }}</p></div>
+    {% endif %}
+
+    <div class="row ">
+        <div class=".col-md-6 .offset-md-3">
+            <form action="/postAdd/" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Title</label><br>
+                    <input type="text" name="title" class="form-control-file" required>
+                    <label>Content</label><br>
+                    <input type="text" name="content" class="form-control-file" required>
+                </div>
+                <input type="submit" class="btn btn-outline-dark" value="Submit">
+            </form>
+        </div>
+    </div>
+{% endblock content %}

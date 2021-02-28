@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if message %}
+        <div class="alert alert-warning" role="alert"><p class="text-center">{{ message }}</p></div>
+    {% endif %}
+    <br>
+    <button type="button" class="btn btn-outline-dark float-right" onclick="location.href={% url 'create' %}">+
+        NEW</button>
+    <h2>Event</h2>
+    <br>
+
+    <div class="agenda">
+        <div class="table-responsive">
+            <table class="table table-condensed table-bordered">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Event</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Single event in a single day -->
+                {% if eventLst %}
+                    {% for event, date, start_time, end_time, host, eventId in eventLst %}
+                        <tr>
+                            <td>{{ date }}</td>
+                            <td>{{ start_time }} - {{ end_time }}</td>
+                            <td>
+                                <p>{{ event }}
+                                    <br>Host by {{ host }}
+                                    {% if email == host %}
+                                        <a href="/cancel/?eventId={{ eventId }}" class="float-right">Delete</a>
+                                    {% endif %}
+                                </p>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>None</td>
+                        </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock content %}
