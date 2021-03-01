@@ -109,7 +109,7 @@ def document(request):
     a = a['users'][0]['localId']
     email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
     get_time = database.child('archive').child('documents').child(a).shallow().get(idtoken).val()
-    print("email: " + str(email))
+    print("idtoken: " + str(idtoken))
     try:
         docId = []
         for i in get_time:
