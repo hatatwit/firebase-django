@@ -66,9 +66,8 @@
                 <!-- User -->
                 <li class="nav-item">
                     {% if email %}
-                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
-                                                         id="navbarDropdown" data-toggle="dropdown"
-                                                         aria-expanded="false">{{ email }}</a>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown"
+                                                         data-toggle="dropdown" aria-expanded="false">{{ email }}</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{% url 'signout' %}">Log out</a>
                             </div>
