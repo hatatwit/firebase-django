@@ -28,7 +28,6 @@ def homepage(request):
         a = authe.get_account_info(idtoken)
         a = a['users'][0]['localId']
         email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
-        print("email: " + str(email))
         return render(request, "index.html", {"email": email, "uid": a})
 
     except:
@@ -51,7 +50,6 @@ def postsignIn(request):
         return render(request, "signIn.html", {"message": message})
     session_id = user['idToken']
     request.session['uid'] = str(session_id)
-    print("email: " + str(email))
 
     return render(request, "index.html", {"email": email})
 
@@ -109,7 +107,6 @@ def document(request):
     a = a['users'][0]['localId']
     email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
     get_time = database.child('archive').child('documents').child(a).shallow().get(idtoken).val()
-    print("idtoken: " + str(idtoken))
     try:
         docId = []
         for i in get_time:
@@ -279,7 +276,6 @@ def agenda(request):
         eventId = []
         for i in get_date:
             eventId.append(i)
-        print("dateLst: " + str(eventId))
 
         eventId.sort(reverse=True)
 
@@ -354,3 +350,13 @@ def cancel(request):
     except:
         message = "Unable to delete event"
         return render(request, 'agenda.html', {"email": email, "message": message})
+
+def test(request):
+    try:
+        idtoken = request.session['uid']
+        a = authe.get_account_info(idtoken)
+        a = a['users'][0]['localId']
+        email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
+        return render(request, "test.html", {"email": email, "uid": a})
+    except:
+        return render(request, "test.html")

@@ -51,4 +51,6 @@ urlpatterns = [
         path('postCreate/', views.postCreate),
         path('cancel/', views.cancel, name="cancel"),
 
+        path('test/', views.test, name="test")
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

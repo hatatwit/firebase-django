@@ -9,7 +9,7 @@
     <title>{% block title %}Bulletin Board{% endblock title %}</title>
 
     <!--local CSS-->
-    <link rel="stylesheet" href="./static/css/base.css">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
     <!--Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
@@ -46,6 +46,9 @@
                 <!-- Home -->
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'test' %}">Test</a>
                 </li>
                 {% if email %}
                 <!-- Archive (dropdown) -->
