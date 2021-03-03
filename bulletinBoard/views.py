@@ -350,13 +350,3 @@ def cancel(request):
     except:
         message = "Unable to delete event"
         return render(request, 'agenda.html', {"email": email, "message": message})
-
-def test(request):
-    try:
-        idtoken = request.session['uid']
-        a = authe.get_account_info(idtoken)
-        a = a['users'][0]['localId']
-        email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
-        return render(request, "test.html", {"email": email, "uid": a})
-    except:
-        return render(request, "test.html")
