@@ -9,7 +9,7 @@
     "rewrites": [{
       "source": "**",
       "run": {
-        "serviceId": "bb-cloudrun",
+        "serviceId": "fir-django-a355c",
         "region": "us-central1"
       }
     }]

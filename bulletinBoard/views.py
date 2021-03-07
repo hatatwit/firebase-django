@@ -13,7 +13,7 @@ config = {
     "appId": "1:162110570998:web:fdff7d57d334449f7c07d7",
     "measurementId": "G-2JWGY8HH2T",
     "databaseURL":"https://fir-django-a355c-default-rtdb.firebaseio.com/",
-    "serviceAccount": "fir-django-a355c-firebase-adminsdk-zbe2q-857c914fd1.json",
+    "serviceAccount": "fir-django-a355c-sdk.json",
 }
 # Initializing database, auth and firebase for further use
 firebase = pyrebase.initialize_app(config)
