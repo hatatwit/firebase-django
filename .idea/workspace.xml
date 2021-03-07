@@ -19,11 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17ff3a26-abb2-48ee-ae15-4f7528667182" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/bulletinBoard/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/bulletinBoard/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fir-django-a355c-firebase-adminsdk-zbe2q-857c914fd1.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/firebase.json" beforeDir="false" afterPath="$PROJECT_DIR$/firebase.json" afterDir="false" />
-    </list>
+    <list default="true" id="17ff3a26-abb2-48ee-ae15-4f7528667182" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,7 +74,7 @@
       <updated>1614800710801</updated>
       <workItem from="1614800712512" duration="1942000" />
       <workItem from="1615151682684" duration="38000" />
-      <workItem from="1615151749565" duration="288000" />
+      <workItem from="1615151749565" duration="719000" />
     </task>
     <servers />
   </component>
