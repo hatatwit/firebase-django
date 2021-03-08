@@ -172,10 +172,10 @@ def post(request):
         for i in postId:
             get_date = database.child("archive").child("posts").child(i).child("date").get().val()
             get_title = database.child("archive").child("posts").child(i).child("title").get().val()
-            get_question = database.child("archive").child("posts").child(i).child("question").get().val()
+            get_content = database.child("archive").child("posts").child(i).child("content").get().val()
             date.append(get_date)
             title.append(get_title)
-            content.append(get_question)
+            content.append(get_content)
 
 
         postLst = [(title[i], content[i], date[i], postId[i]) for i in range(0, len(postId))]
