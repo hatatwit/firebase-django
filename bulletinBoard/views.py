@@ -63,14 +63,13 @@ def postsignUp(request):
     username = request.POST.get('username')
     email = request.POST.get('email')
     pw = request.POST.get('pass')
-    idtoken = request.session['uid']
 
     try:
         # creating a user with the given email and password
         user = authe.create_user_with_email_and_password(email, pw)
         uid = user["localId"]
         data = {"username": username, "email": email, "pass": pw}
-        database.child("users").child(uid).set(data, idtoken)
+        database.child("users").child(uid).set(data)
         message = "Successfully create new account"
         return render(request, "signIn.html", {"message": message})
     except:

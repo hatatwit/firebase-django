@@ -20,20 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="17ff3a26-abb2-48ee-ae15-4f7528667182" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bulletinBoard/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/bulletinBoard/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/stylesheet.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/agenda.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/agenda.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/document.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/document.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/reset.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reset.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/signIn.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/signIn.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/signUp.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/signUp.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,6 +88,8 @@
       <workItem from="1614800712512" duration="1942000" />
       <workItem from="1615151682684" duration="38000" />
       <workItem from="1615151749565" duration="14528000" />
+      <workItem from="1615166561928" duration="5000" />
+      <workItem from="1615166753073" duration="50000" />
     </task>
     <servers />
   </component>
