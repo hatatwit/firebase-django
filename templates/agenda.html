@@ -23,26 +23,24 @@
                 <tbody>
                 <!-- Single event in a single day -->
                 {% if eventLst %}
-                    {% for event, date, start_time, end_time, host, eventId in eventLst %}
+                    {% for event, date, start_time, end_time, content, eventId in eventLst %}
                         <tr>
                             <td>{{ date }}</td>
                             <td>{{ start_time }} - {{ end_time }}</td>
                             <td>
                                 <p>{{ event }}
-                                    <br>Host by {{ host }}
-                                    {% if email == host %}
-                                        <a href="/cancel/?eventId={{ eventId }}" class="float-right">Delete</a>
-                                    {% endif %}
+                                    <br>{{ content }}
+                                    <a href="/cancel/?eventId={{ eventId }}" class="float-right">Delete</a>
                                 </p>
                             </td>
                         </tr>
                     {% endfor %}
-                    {% else %}
-                        <tr>
-                            <td>None</td>
-                            <td>None</td>
-                            <td>None</td>
-                        </tr>
+                {% else %}
+                    <tr>
+                        <td>None</td>
+                        <td>None</td>
+                        <td>None</td>
+                    </tr>
                 {% endif %}
                 </tbody>
             </table>

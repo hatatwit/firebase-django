@@ -1,5 +1,34 @@
 {% extends 'base.html' %}
 
+{% block navbar %}
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+        <!-- Logo -->
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="/media/image/WIT-Logo.png" alt="logo" width="60" height="60">
+        </a>
+        <!-- Logo Brand -->
+        <a class="navbar-brand font-weight-bold" href="{% url 'home' %}">Bulletin Board</a>
+        <!-- Hamburger menu icon -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <!-- Home -->
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <!-- User -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'signin' %}">Sign In</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% endblock navbar %}
+
 {% block content %}
     <!--- Welcome -->
     <section class="pt-4 pt-md-11">
@@ -63,5 +92,4 @@
             </div>
         </div>
     </section>
-
 {% endblock content %}

@@ -9,7 +9,7 @@
     <title>{% block title %}Bulletin Board{% endblock title %}</title>
 
     <!--local CSS-->
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
 
     <!--Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
@@ -28,6 +28,7 @@
 
 <body>
 <header>
+    {% block navbar %}
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
         <!-- Logo -->
@@ -47,38 +48,28 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'home' %}">Home</a>
                 </li>
-                {% if email %}
                 <!-- Archive (dropdown) -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown"
-                           data-toggle="dropdown"
-                           aria-expanded="false">Archive</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{% url 'doc' %}">Document</a>
-                            <a class="dropdown-item" href="{% url 'post' %}">Post</a>
-                        </div>
-                    </li>
-                    <!-- Event -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'event' %}">Event</a>
-                    </li>
-                {% endif %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown"
+                       data-toggle="dropdown"
+                       aria-expanded="false">Archive</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'doc' %}">Document</a>
+                        <a class="dropdown-item" href="{% url 'post' %}">Post</a>
+                    </div>
+                </li>
+                <!-- Event -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'event' %}">Event</a>
+                </li>
                 <!-- User -->
                 <li class="nav-item">
-                    {% if email %}
-                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown"
-                                                         data-toggle="dropdown" aria-expanded="false">{{ email }}</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{% url 'signout' %}">Log out</a>
-                            </div>
-                        </li>
-                    {% else %}
-                        <a class="nav-link" href="{% url 'signin' %}">Sign In</a>
-                    {% endif %}
+                    <a class="nav-link" href="{% url 'signout' %}">Sign Out</a>
                 </li>
             </ul>
         </div>
     </nav>
+    {% endblock navbar %}
 </header>
 
 <div class="container">

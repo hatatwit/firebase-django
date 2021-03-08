@@ -23,15 +23,8 @@ storage = firebase.storage()
 
 # Homepage view
 def homepage(request):
-    try:
-        idtoken = request.session['uid']
-        a = authe.get_account_info(idtoken)
-        a = a['users'][0]['localId']
-        email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
-        return render(request, "index.html", {"email": email, "uid": a})
 
-    except:
-        return render(request, "index.html")
+    return render(request, "index.html")
 
 
 # Authentication views
@@ -51,7 +44,7 @@ def postsignIn(request):
     session_id = user['idToken']
     request.session['uid'] = str(session_id)
 
-    return render(request, "index.html", {"email": email})
+    return render(request, "welcome.html", {"email": email})
 
 
 def signOut(request):
@@ -77,7 +70,7 @@ def postsignUp(request):
         user = authe.create_user_with_email_and_password(email, pw)
         uid = user["localId"]
         data = {"username": username, "email": email, "pass": pw}
-        database.child("users").child(uid).child("user_info").set(data, idtoken)
+        database.child("users").child(uid).set(data, idtoken)
         message = "Successfully create new account"
         return render(request, "signIn.html", {"message": message})
     except:
@@ -102,11 +95,7 @@ def postReset(request):
 
 # Document views
 def document(request):
-    idtoken = request.session['uid']
-    a = authe.get_account_info(idtoken)
-    a = a['users'][0]['localId']
-    email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
-    get_time = database.child('archive').child('documents').child(a).shallow().get(idtoken).val()
+    get_time = database.child('archive').child('documents').shallow().get().val()
     try:
         docId = []
         for i in get_time:
@@ -116,78 +105,61 @@ def document(request):
         title = []
         url = []
         for i in docId:
-            get_date = database.child("archive").child("documents").child(a).child(i).child("date").get(idtoken).val()
-            get_title = database.child("archive").child("documents").child(a).child(i).child("title").get(idtoken).val()
-            get_url = database.child("archive").child("documents").child(a).child(i).child("url").get(idtoken).val()
+            get_date = database.child("archive").child("documents").child(i).child("date").get().val()
+            get_title = database.child("archive").child("documents").child(i).child("title").get().val()
+            get_url = database.child("archive").child("documents").child(i).child("url").get().val()
             title.append(get_title)
             url.append(get_url)
             date.append(get_date)
 
         documentLst = [(title[i], date[i], docId[i], url[i]) for i in range(0, len(docId))]
 
-        return render(request, 'document.html', {"email": email, "documentLst": documentLst})
+        return render(request, 'document.html', {"documentLst": documentLst})
 
     except:
-        return render(request, "document.html", {"email": email})
+        return render(request, "document.html")
 
 
 def upload(request):
-    idtoken = request.session['uid']
-    a = authe.get_account_info(idtoken)
-    a = a['users'][0]['localId']
-    email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
 
-    return render(request, "upload.html", {"email": email})
+    return render(request, "upload.html")
 
 
 def postUpload(request):
     current_time = datetime.datetime.now()
     timestamp = current_time.timestamp()
 
-    idtoken = request.session['uid']
-    a = authe.get_account_info(idtoken)
-    a = a['users'][0]['localId']
-
     date = "{0}-{1}-{2}".format(current_time.month, current_time.day, current_time.year)
     title = request.POST.get('title')
     url = request.POST.get('url')
-    email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
 
     try:
         data = {"title": title, "date": date, "url": url}
-        database.child('archive').child('documents').child(a).child(str(int(timestamp))).set(data, idtoken)
+        database.child('archive').child('documents').child(str(int(timestamp))).set(data)
         return redirect(document)
     except:
         message = " Unable to upload file"
-        return render(request, "upload.html", {"email": email, "message": message})
+        return render(request, "upload.html", {"message": message})
 
 
 def delete(request):
     docId = request.GET.get('docId')
-    idtoken = request.session['uid']
-    a = authe.get_account_info(idtoken)
-    a = a['users'][0]['localId']
-    email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
-    get_url = database.child("archive").child('documents').child(a).child(docId).child("url").get(idtoken).val()
+    get_url = database.child("archive").child('documents').child(docId).child("url").get().val()
 
     try:
         # Delele data on Firebase database
-        database.child("archive").child('documents').child(a).child(docId).remove(idtoken)
+        database.child("archive").child('documents').child(docId).remove()
         extractFilename = re.search('/o/(.*?)\?alt', get_url)
         storage.delete(extractFilename.group(1))
         return redirect(document)
     except:
         message = "Unable to delete file"
-        return render(request, 'document.html', {"email": email, "message": message})
+        return render(request, 'document.html', {"message": message})
 
 
 # Post views
 def post(request):
-    idtoken = request.session['uid']
-    a = authe.get_account_info(idtoken)
-    a = a['users'][0]['localId']
-    email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
-    get_postId = database.child("archive").child("posts").shallow().get(idtoken).val()
+    get_postId = database.child("archive").child("posts").shallow().get().val()
     try:
         postId = []
         for i in get_postId:
@@ -197,33 +169,27 @@ def post(request):
 
         date = []
         title = []
-        author = []
         content = []
         for i in postId:
-            get_date = database.child("archive").child("posts").child(i).child("date").get(idtoken).val()
-            get_title = database.child("archive").child("posts").child(i).child("title").get(idtoken).val()
-            get_author = database.child("archive").child("posts").child(i).child("email").get(idtoken).val()
-            get_content = database.child("archive").child("posts").child(i).child("content").get(idtoken).val()
+            get_date = database.child("archive").child("posts").child(i).child("date").get().val()
+            get_title = database.child("archive").child("posts").child(i).child("title").get().val()
+            get_question = database.child("archive").child("posts").child(i).child("question").get().val()
             date.append(get_date)
             title.append(get_title)
-            author.append(get_author)
-            content.append(get_content)
+            content.append(get_question)
 
-        postLst = [(title[i], author[i], date[i], postId[i], content[i]) for i in range(0, len(postId))]
 
-        return render(request, 'post.html', {"email": email, "postLst": postLst})
+        postLst = [(title[i], content[i], date[i], postId[i]) for i in range(0, len(postId))]
+
+        return render(request, "post.html", {"postLst": postLst})
 
     except:
-        return render(request, "post.html", {"email": email})
+        return render(request, "post.html",)
 
 
 def add(request):
-    idtoken = request.session['uid']
-    a = authe.get_account_info(idtoken)
-    a = a['users'][0]['localId']
-    email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
 
-    return render(request, "add.html", {"email": email})
+    return render(request, "add.html")
 
 
 def postAdd(request):
@@ -232,46 +198,32 @@ def postAdd(request):
 
     date = current_time.strftime("%m/%d/%Y %H:%M:%S")
 
-    idtoken = request.session['uid']
-    a = authe.get_account_info(idtoken)
-    a = a['users'][0]['localId']
-
     title = request.POST.get('title')
     content = request.POST.get('content')
-    email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
 
     try:
-        data = {"uid": a, "email": email, "title": title, "content": content, "date": date}
-        database.child("archive").child("posts").child(str(int(timestamp))).set(data, idtoken)
+        data = {"title": title, "content": content, "date": date}
+        database.child("archive").child("posts").child(str(int(timestamp))).set(data)
         return redirect(post)
     except:
         message = " Unable to add post"
-        return render(request, "add.html", {"email": email, "message": message})
+        return render(request, "add.html", {"message": message})
 
 
 def remove(request):
     postId = request.GET.get('postId')
-    idtoken = request.session['uid']
-    a = authe.get_account_info(idtoken)
-    a = a['users'][0]['localId']
-    email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
 
     try:
         # Delele data on Firebase database
-        database.child("archive").child("posts").child(postId).remove(idtoken)
+        database.child("archive").child("posts").child(postId).remove()
         return redirect(post)
     except:
         message = "Unable to delete post"
-        return render(request, 'post.html', {"email": email, "message": message})
-
+        return render(request, 'post.html', {"message": message})
 
 # Event views
 def agenda(request):
-    idtoken = request.session['uid']
-    a = authe.get_account_info(idtoken)
-    a = a['users'][0]['localId']
-    email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
-    get_date = database.child("events").shallow().get(idtoken).val()
+    get_date = database.child("events").shallow().get().val()
     try:
         eventId = []
         for i in get_date:
@@ -283,70 +235,59 @@ def agenda(request):
         date = []
         start_time = []
         end_time = []
-        host = []
+        content = []
 
         for i in eventId:
-            get_event = database.child("events").child(i).child("event").get(idtoken).val()
-            get_date = database.child("events").child(i).child("date").get(idtoken).val()
-            get_start_time = database.child("events").child(i).child("start_time").get(idtoken).val()
-            get_end_time = database.child("events").child(i).child("end_time").get(idtoken).val()
-            get_host = database.child("events").child(i).child("email").get(idtoken).val()
+            get_event = database.child("events").child(i).child("event").get().val()
+            get_date = database.child("events").child(i).child("date").get().val()
+            get_start_time = database.child("events").child(i).child("start_time").get().val()
+            get_end_time = database.child("events").child(i).child("end_time").get().val()
+            get_content = database.child("events").child(i).child("content").get().val()
             event.append(get_event)
             date.append(get_date)
             start_time.append(get_start_time)
             end_time.append(get_end_time)
-            host.append(get_host)
+            content.append(get_content)
 
 
-        eventLst = [(event[i], date[i], start_time[i], end_time[i], host[i], eventId[i]) for i in range(0,
+        eventLst = [(event[i], date[i], start_time[i], end_time[i], content[i], eventId[i]) for i in range(0,
                                                                                                         len(eventId))]
 
-        return render(request, 'agenda.html', {"email": email, "eventLst": eventLst})
+        return render(request, 'agenda.html', {"eventLst": eventLst})
 
     except:
-        return render(request, "agenda.html", {"email": email})
+
+        return render(request, "agenda.html")
 
 def create(request):
-    idtoken = request.session["uid"]
-    a = authe.get_account_info(idtoken)
-    a = a["users"][0]["localId"]
-    email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
 
-    return render(request, "create.html", {"email": email})
+    return render(request, "create.html")
 
 def postCreate(request):
     current_time = datetime.datetime.now()
     timestamp = current_time.timestamp()
 
-    idtoken = request.session['uid']
-    a = authe.get_account_info(idtoken)
-    a = a['users'][0]['localId']
-    email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
-
     event = request.POST.get('event')
+    content = request.POST.get('content')
     start_time = request.POST.get('start_time')
     end_time = request.POST.get('end_time')
     date = request.POST.get('date')
 
     try:
-        data = {"uid": a, "email": email, "date": date,"event": event,"start_time": start_time, "end_time": end_time}
-        database.child("events").child(str(int(timestamp))).set(data, idtoken)
+        data = {"date": date,"event": event,"start_time": start_time, "end_time": end_time, "content": content}
+        database.child("events").child(str(int(timestamp))).set(data)
         return redirect(agenda)
     except:
         message = " Unable to create event"
-        return render(request, "create.html", {"email": email, "message": message})
+        return render(request, "create.html", {"message": message})
 
 def cancel(request):
     eventId = request.GET.get('eventId')
-    idtoken = request.session['uid']
-    a = authe.get_account_info(idtoken)
-    a = a['users'][0]['localId']
-    email = database.child('users').child(a).child('user_info').child('email').get(idtoken).val()
 
     try:
         # Delele data on Firebase database
-        database.child("events").child(eventId).remove(idtoken)
+        database.child("events").child(eventId).remove()
         return redirect(agenda)
     except:
         message = "Unable to delete event"
-        return render(request, 'agenda.html', {"email": email, "message": message})
+        return render(request, 'agenda.html', {"message": message})
