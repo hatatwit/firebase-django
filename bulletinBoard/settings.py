@@ -27,7 +27,7 @@ SECRET_KEY = 'jqbauqik6%6gw8q77&l-@jul92jn^gc$(@s=1gzc*rkglwo@a4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "fir-django-a355c-pepyysgq7a-uc.a.run.app"]
+ALLOWED_HOSTS = ["127.0.0.1", "34.123.76.28", "fir-django-a355c-pepyysgq7a-uc.a.run.app"]
 
 
 # Application definition

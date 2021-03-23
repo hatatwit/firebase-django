@@ -249,8 +249,7 @@ def agenda(request):
             content.append(get_content)
 
 
-        eventLst = [(event[i], date[i], start_time[i], end_time[i], content[i], eventId[i]) for i in range(0,
-                                                                                                        len(eventId))]
+        eventLst = [(event[i], date[i], start_time[i], end_time[i], content[i], eventId[i]) for i in range(0, len(eventId))]
 
         return render(request, 'agenda.html', {"eventLst": eventLst})
 
