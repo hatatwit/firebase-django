@@ -1,4 +1,4 @@
-name: Deploy to Cloud Run
+name: Deploy to Google Cloud Platform
 on:
   push:
     branches:
@@ -9,7 +9,7 @@ env:
   SA_KEY_JSON: ${{ secrets.GCLOUD_AUTH }}
 jobs:
   deploy:
-    name: Deploy to Cloud Run
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -25,6 +25,11 @@ jobs:
       - name: Build
         run: gcloud builds submit --tag gcr.io/$PROJECT_ID/$PROJECT_ID:$GITHUB_SHA
 
-      - name: Deploy
+      # Deploy Docker image to Cloud Run
+      - name: Deploy to CLoud Run
         run: gcloud run deploy $PROJECT_ID --image gcr.io/$PROJECT_ID/$PROJECT_ID:$GITHUB_SHA --platform managed --region $RUN_REGION
+
+      # Deploy to App Engine flexible
+      - name: Deploy to App Engine
+        run: gcloud beta app deploy
 
