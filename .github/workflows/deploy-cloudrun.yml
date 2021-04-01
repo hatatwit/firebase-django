@@ -1,4 +1,4 @@
-name: Deploy to Google Cloud Platform
+name: Deploy to Cloud Run
 on:
   push:
     branches:
@@ -26,5 +26,5 @@ jobs:
         run: gcloud builds submit --tag gcr.io/$PROJECT_ID/$PROJECT_ID:$GITHUB_SHA
 
       # Deploy Docker image to Cloud Run
-      - name: Deploy to CLoud Run
+      - name: Deploy
         run: gcloud run deploy $PROJECT_ID --image gcr.io/$PROJECT_ID/$PROJECT_ID:$GITHUB_SHA --platform managed --region $RUN_REGION
