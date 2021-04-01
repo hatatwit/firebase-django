@@ -29,7 +29,12 @@ jobs:
       - name: Deploy to CLoud Run
         run: gcloud run deploy $PROJECT_ID --image gcr.io/$PROJECT_ID/$PROJECT_ID:$GITHUB_SHA --platform managed --region $RUN_REGION
 
-      # Deploy to App Engine flexible
+      # Deploy to App Engine
       - name: Deploy to App Engine
-        run: gcloud beta app deploy
+        id: deploy-app
+        uses: google-github-actions/deploy-appengine@v0.1.0
+        with:
+          project: ${{ secrets.GCLOUD_PROJECT }}
+          deliverables: path/to/app.yaml
+          credentials: ${{ secrets.GCLOUD_AUTH }}
 
