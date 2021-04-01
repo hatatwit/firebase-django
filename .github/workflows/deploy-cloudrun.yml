@@ -30,7 +30,7 @@ jobs:
 #        run: gcloud run deploy $PROJECT_ID --image gcr.io/$PROJECT_ID/$PROJECT_ID:$GITHUB_SHA --platform managed --region $RUN_REGION
       - name: Deploy to Cloud Run
         id: deploy-service
-        uses: google-github-actions/deploy-cloudrun@v0.1.0
+        uses: google-github-actions/deploy-cloudrun@main
         with:
           image: gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_PROJECT }}
           service: fir-django-a355c
@@ -40,7 +40,7 @@ jobs:
       # Deploy to App Engine
       - name: Deploy to App Engine
         id: deploy-app
-        uses: google-github-actions/deploy-appengine@v0.1.0
+        uses: google-github-actions/deploy-appengine@main
         with:
           project: ${{ secrets.GCLOUD_PROJECT }}
           deliverables: path/to/app.yaml
