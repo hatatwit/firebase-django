@@ -12,22 +12,30 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      # Setup gcloud CLI
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+#      - uses: actions/checkout@v2
+#
+#      # Setup gcloud CLI
+#      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+#        with:
+#          version: "290.0.1"
+#          service_account_key: ${{ secrets.GCLOUD_AUTH }}
+#          project_id: ${{ secrets.GCLOUD_PROJECT }}
+#
+#      # Build and push image to Google Container Registry
+#      - name: Build
+#        run: gcloud builds submit --tag gcr.io/$PROJECT_ID/$PROJECT_ID:$GITHUB_SHA
+#
+#      # Deploy Docker image to Cloud Run
+#      - name: Deploy to CLoud Run
+#        run: gcloud run deploy $PROJECT_ID --image gcr.io/$PROJECT_ID/$PROJECT_ID:$GITHUB_SHA --platform managed --region $RUN_REGION
+      - name: Deploy to Cloud Run
+        id: deploy-service
+        uses: google-github-actions/deploy-cloudrun@v0.1.0
         with:
-          version: "290.0.1"
-          service_account_key: ${{ secrets.GCLOUD_AUTH }}
-          project_id: ${{ secrets.GCLOUD_PROJECT }}
-
-      # Build and push image to Google Container Registry
-      - name: Build
-        run: gcloud builds submit --tag gcr.io/$PROJECT_ID/$PROJECT_ID:$GITHUB_SHA
-
-      # Deploy Docker image to Cloud Run
-      - name: Deploy to CLoud Run
-        run: gcloud run deploy $PROJECT_ID --image gcr.io/$PROJECT_ID/$PROJECT_ID:$GITHUB_SHA --platform managed --region $RUN_REGION
+          image: gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_PROJECT }}
+          service: fir-django-a355c
+          project: ${{ secrets.GCLOUD_PROJECT }}
+          credentials: ${{ secrets.GCLOUD_AUTH }}
 
       # Deploy to App Engine
       - name: Deploy to App Engine
