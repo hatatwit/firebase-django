@@ -30,6 +30,4 @@ jobs:
         run: gcloud run deploy $PROJECT_ID --image gcr.io/$PROJECT_ID/$PROJECT_ID:$GITHUB_SHA --platform managed --region $RUN_REGION
 
       - name: Deploy to App Engine
-        ignore:
-          - "Dockerfile"
         run: gcloud app deploy
