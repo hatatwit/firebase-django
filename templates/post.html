@@ -10,7 +10,7 @@
     <h2>Posts</h2>
     <br>
     {% if postLst %}
-        {% for title, question, date, postId in postLst %}
+        {% for title, content, date, postId in postLst %}
             <div class="card shadow-sm mt-3">
                 <div class="card-header">
                     <span class="font-weight-bold">{{ title }}</span><span class="text-muted"> | {{ date }}</span>
