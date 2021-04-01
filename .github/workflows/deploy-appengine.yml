@@ -14,5 +14,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: google-github-actions/deploy-appengine@main
-        with:
-          credentials: ${{ secrets.GCLOUD_AUTH }}
+      - name: Build
+        run: gcloud app deploy --image-url gcr.io/$PROJECT_ID/$PROJECT_ID
