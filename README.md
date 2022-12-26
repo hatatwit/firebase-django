@@ -1,7 +1,22 @@
-# Firebase Django Bulletin Board
-A website created with Python, Django, Firebase, Bootstrap and Dockerfile that allows users to store and share files with multiple users, get updated on announcements and schedule events. Following every steps in the firebase-django-tutorial-version5.doc to replicate the website with detail and effective instructions.
+# firebase-django
+A website allows users to store and share files with multiple users, get updated on announcements and schedule events. Following every steps in the firebase-django-tutorial-version5.doc to replicate the website with detail and effective instructions.
 
-# Illustration
+## Installation
+
+```bash
+$ git clone https://github.com/hatatwit/firebase-django.git
+$ cd firebase-django
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip install -r requirements.txt
+$ python manage.py makemigrations
+$ python manage.py migrate
+$ python manage.py createsuperuser
+$ python manage.py runserver
+
+```
+
+# Demo
 
 ### index.html
 Homepage where users need to sign in/sign up to access any features of the website.
@@ -21,5 +36,20 @@ Event page where users schedule a new event with the purpose, time and date of t
 ### post.html
 Post page where users post announcements that other users can also see it.
 ![alt text](https://github.com/hatatwit/firebase-django/blob/master/announce.png?raw=true)
+
+
+## Build with
+Web technologies: HTML, CSS, Bootstrap, Python, Django 
+
+Server and Other Tools: Firebase, GCP, Dockerfile
+
+Database: Firebase Realtime Database
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+
+
 
 
