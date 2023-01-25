@@ -39,11 +39,20 @@ Post page where users post announcements that other users can also see it.
 
 
 ## Build with
-Web technologies: HTML, CSS, Bootstrap, Python, Django 
+Web technologies: 
+* HTML
+* CSS
+* Bootstrap
+* Python
+* Django 
 
-Server and Other Tools: Firebase, GCP, Dockerfile
+Server and Other Tools: 
+* Firebase
+* GCP
+* Dockerfile
 
-Database: Firebase Realtime Database
+Database: 
+* Firebase Realtime Database
 
 ## License
 
